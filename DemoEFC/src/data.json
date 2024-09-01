@@ -1,0 +1,6 @@
+{
+  "Database": {
+    "ConnectionString" : "Host=127.0.0.1; Database=DemoEFC; Username=postgres; Password=aA123456",
+    "ConnectionString_SQLServer" : "Server=127.0.0.1,14333; Database=DemoEFC; Trusted_Connection=False; User Id=sa; Password=aA123456; TrustServerCertificate=Yes; Encrypt=false;"
+  }
+}

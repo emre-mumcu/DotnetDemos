@@ -1,0 +1,302 @@
+﻿@model src.Controllers.HomeVM
+
+<style>
+    pre {
+        height: auto;
+        max-height: 200px;
+        overflow: auto;
+        background-color: #eeeeee;
+        word-break: normal !important;
+        word-wrap: normal !important;
+        white-space: pre !important;
+    }
+</style>
+
+<div class="container-lg">
+
+    <div class="row">
+        <div class="col-12 py-4">
+
+            <h2>Different Log Levels in log4net</h2>
+
+            <p>Log4net has different log levels for classifying and prioritizing the log messages. We can classify the
+                logs based on their priority, severity, etc.</p>
+
+            <p>That said, let’s inspect the different log levels in log4net in the order of increasing severity:</p>
+
+            <ul>
+                <li>
+                    <p><strong>ALL</strong>: Everything gets logged.</p>
+                </li>
+                <li>
+                    <p><strong>DEBUG</strong>: We can use the <code>ILog.Debug()</code> method for writing a log with
+                        debug level which is mainly used for debugging purposes. This is a good solution if we want to
+                        provide detailed information about the application’s execution during debugging and testing
+                        phases.</p>
+                </li>
+                <li>
+                    <p><strong>INFO</strong>: The <code>ILog.Info()</code> method allows us to write a log with
+                        information level. This log level is best suited for logging any information about the
+                        application as it runs.</p>
+                </li>
+                <li>
+                    <p><strong>WARN</strong>: A warning level log is the best option when we want to indicate that
+                        something unexpected has happened, but the application can continue running. For writing a
+                        warning-level log, we use the <code>ILog.Warn()</code> method.</p>
+                </li>
+                <li>
+                    <p><strong>ERROR</strong>: We can use error level logs to indicate that some error has occurred and
+                        the application failed to perform some tasks. For writing an error log, we can use the
+                        <code>ILog.Error()</code> method.
+                    </p>
+                </li>
+                <li>
+                    <p><strong>FATAL</strong>: Sometimes some critical errors can occur in our application which can
+                        make it crash or become unresponsive. During these times, we can use the
+                        <code>ILog.Fatal()</code> method to indicate that a fatal error has occurred.
+                    </p>
+                </li>
+                <li>
+                    <p><strong>OFF</strong>: Nothing gets logged.</p>
+                </li>
+            </ul>
+
+            <h2>Log Appenders in log4net</h2>
+
+            <p>In log4net, the appenders are responsible for controlling how to write log messages to various
+                destinations, such as a file, console, database, email, etc. <strong>We can control how and where the
+                    log messages are stored, as well as the message format using appenders</strong>.</p>
+
+
+            <div>
+                <p>Some of the appenders that log4net supports include:</p>
+                <ul>
+                    <li>
+                        <p><strong>ConsoleAppender</strong>: This writes log messages to the console output.</p>
+                    </li>
+                    <li>
+                        <p><strong>FileAppender</strong>: A file appender writes log messages to a file.</p>
+                    </li>
+                    <li>
+                        <p><strong>RollingFileAppender</strong>: This appender writes log messages to a file and can
+                            automatically switch to a new file when it reaches a certain size or date.</p>
+                    </li>
+                    <li>
+                        <p><strong>AdoNetAppender</strong>: We can use this appender to write log messages to a
+                            database.</p>
+                    </li>
+                    <li>
+                        <p><strong>SmtpAppender</strong>: This appender can send log messages via email.</p>
+                    </li>
+                </ul>
+                <p>Log4net supports logging messages to multiple destinations simultaneously using multiple appenders as
+                    well. We just need to define multiple appenders in the config file and specify them in the root
+                    section.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12"><pre>@Model.AllLogs</pre></div>
+        <div class="col-12"><pre>@Model.ErrorLogs</pre></div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">                
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="cfg1" data-bs-toggle="tab" data-bs-target="#tab-cfg1"
+                        type="button" role="tab">Config Sample 1</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="cfg2" data-bs-toggle="tab" data-bs-target="#tab-cfg2" type="button"
+                        type="button" role="tab">Config Sample 2</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="cfg3" data-bs-toggle="tab" data-bs-target="#tab-cfg3" type="button"
+                        type="button" role="tab">Config Sample 3</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="cfg4" data-bs-toggle="tab" data-bs-target="#tab-cfg4" type="button"
+                        type="button" role="tab">Config Sample 4</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tab-cfg1" role="tabpanel" aria-labelledby="home-tab">
+<xmp>
+<log4net>
+    <root>
+        <level value="ALL" />
+        <appender-ref ref="RollingFile" />
+    </root>
+    <appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <rollingStyle value="Date" />
+        <staticLogFileName value="false" />
+        <file value="AppLog_" />
+        <datePattern value="yyyyMMdd'.log'" />
+        <appendToFile value="true" />
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern
+                value="%date{yyyy-MM-dd HH:mm:ss,fff} %-5level %location %message %exception %newline" />
+        </layout>
+    </appender>
+</log4net>  
+</xmp>
+                </div>
+                <div class="tab-pane fade" id="tab-cfg2" role="tabpanel" aria-labelledby="profile-tab">
+<xmp>
+<log4net>
+    <root>
+        <level value="WARN" />
+        <appender-ref ref="RollingFile" />
+    </root>
+    <appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
+        <appendToFile value="true" />
+        <file value="app.log" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd-HHmm" />
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern value="
+                (01)%date{yyyy-MM-dd HH:mm:ss,fff}
+                (02)%-5level
+                (03)%appdomain
+                (04)%file
+                (05)%identity
+                (06)%location
+                (07)%line
+                (08)%logger
+                (09)%message
+                (10)%method
+                (11)%stacktrace
+                (12)%stacktracedetail
+                (13)%timestamp
+                (14)%thread
+                (15)%type
+                (16)%username
+                (17)%utcdate
+                (18)%newline
+                (19)%exception
+                (20)%newline" />
+            <conversionPattern value="%-5p %d{hh:mm:ss} %message%newline" />
+            <conversionPattern
+                value="%date %-5level %logger.%method [%line] - MESSAGE: %message%newline" />
+        </layout>
+    </appender>
+</log4net>
+</xmp>
+                </div>
+                <div class="tab-pane fade" id="tab-cfg3" role="tabpanel" aria-labelledby="contact-tab">
+<xmp>                
+<log4net>
+    <root>
+        <level value="ALL" />
+        <appender-ref ref="AllRollingFileAppender" />
+        <appender-ref ref="ErrorRollingFileAppender" />
+    </root>
+
+    <appender name="AllRollingFileAppender" type="log4net.Appender.RollingFileAppender">
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <rollingStyle value="Date" />
+        <staticLogFileName value="false" />
+        <file value="AppAllLog_" />
+        <datePattern value="yyyyMMdd'.log'" />
+        <appendToFile value="true" />
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern
+                value="%date{yyyy-MM-dd HH:mm:ss,fff} %-9level %location %message %exception %newline" />
+        </layout>
+        <filter type="log4net.Filter.LevelRangeFilter">
+            <levelMin value="DEBUG" />
+            <levelMax value="WARN" />
+        </filter>
+        <filter type="log4net.Filter.DenyAllFilter" />
+    </appender>
+
+    <appender name="ErrorRollingFileAppender" type="log4net.Appender.RollingFileAppender">
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <rollingStyle value="Date" />
+        <staticLogFileName value="false" />
+        <file value="AppErrLog_" />
+        <datePattern value="yyyyMMdd'.log'" />
+        <appendToFile value="true" />
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern
+                value="%date{yyyy-MM-dd HH:mm:ss,fff} %-9level %location %message %exception %newline" />
+        </layout>
+        <filter type="log4net.Filter.LevelMatchFilter">
+            <levelToMatch value="ERROR" />
+        </filter>
+        <filter type="log4net.Filter.LevelMatchFilter">
+            <levelToMatch value="FATAL" />
+        </filter>
+        <filter type="log4net.Filter.DenyAllFilter" />
+    </appender>
+
+</log4net>
+</xmp>
+                </div>
+                <div class="tab-pane fade" id="tab-cfg4" role="tabpanel" aria-labelledby="contact-tab">
+<xmp>
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <log4net>
+        <root>
+            <level value="ALL" />
+            <appender-ref ref="console" />
+            <appender-ref ref="file" />
+        </root>
+        <appender name="console" type="log4net.Appender.ManagedColoredConsoleAppender">
+            <mapping>
+                <level value="INFO" />
+                <forecolor value="Green" />
+            </mapping>
+            <mapping>
+                <level value="WARN" />
+                <forecolor value="Yellow" />
+            </mapping>
+            <mapping>
+                <level value="ERROR" />
+                <forecolor value="Red" />
+            </mapping>
+            <mapping>
+                <level value="DEBUG" />
+                <forecolor value="Blue" />
+            </mapping>
+            <layout type="log4net.Layout.PatternLayout">
+                <conversionPattern
+                    value="%date %level %logger.%method[%line] - %message%newline" />
+            </layout>
+        </appender>
+        <appender name="file" type="log4net.Appender.RollingFileAppender">
+            <file value="main.log" />
+            <appendToFile value="true" />
+            <rollingStyle value="Size" />
+            <maxSizeRollBackups value="5" />
+            <maximumFileSize value="25MB" />
+            <staticLogFileName value="true" />
+            <layout type="log4net.Layout.PatternLayout">
+                <conversionPattern
+                    value="%date [%thread] %level %logger.%method[%line] - %message%newline" />
+            </layout>
+        </appender>
+    </log4net>
+</configuration>
+</xmp>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <p>Beware that %file %identity %line %method and %username parameters are extremely slow</p>
+            <h2>References</h2>
+            <ul>
+                <li>https://logging.apache.org/log4net/release/config-examples.html</li>
+                <li>https://logging.apache.org/log4net/log4net-1.2.12/release/sdk/log4net.Layout.PatternLayout.html</li>
+            </ul>
+        </div>
+    </div>
+
+</div>

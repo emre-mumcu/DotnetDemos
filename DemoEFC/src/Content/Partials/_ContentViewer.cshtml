@@ -1,0 +1,28 @@
+﻿@using Markdig
+@using System.Globalization
+
+@model string
+
+@{
+    string GetFileContent()
+    {
+        var pipeline = new MarkdownPipelineBuilder()
+            .UseAdvancedExtensions()
+            .Build();
+
+        string readmeStr = System.IO.File.ReadAllText($"App_Doc/{Model}.md");
+
+        return Markdown.ToHtml(readmeStr, pipeline);
+    }
+}
+
+<div class="p-4 shadow-4 rounded-3" style="line-height: 1.8rem; background-color: hsl(0, 0%, 95%); overflow-y: auto">
+    @Html.Raw(GetFileContent())
+</div>
+
+
+
+
+        
+
+

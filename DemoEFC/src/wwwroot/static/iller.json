@@ -1,0 +1,326 @@
+[
+  {
+    "IlId": 1,
+    "IlAdi": "ADANA"
+  },
+  {
+    "IlId": 2,
+    "IlAdi": "ADIYAMAN"
+  },
+  {
+    "IlId": 3,
+    "IlAdi": "AFYONKARAHİSAR"
+  },
+  {
+    "IlId": 4,
+    "IlAdi": "AĞRI"
+  },
+  {
+    "IlId": 5,
+    "IlAdi": "AMASYA"
+  },
+  {
+    "IlId": 6,
+    "IlAdi": "ANKARA"
+  },
+  {
+    "IlId": 7,
+    "IlAdi": "ANTALYA"
+  },
+  {
+    "IlId": 8,
+    "IlAdi": "ARTVİN"
+  },
+  {
+    "IlId": 9,
+    "IlAdi": "AYDIN"
+  },
+  {
+    "IlId": 10,
+    "IlAdi": "BALIKESİR"
+  },
+  {
+    "IlId": 11,
+    "IlAdi": "BİLECİK"
+  },
+  {
+    "IlId": 12,
+    "IlAdi": "BİNGÖL"
+  },
+  {
+    "IlId": 13,
+    "IlAdi": "BİTLİS"
+  },
+  {
+    "IlId": 14,
+    "IlAdi": "BOLU"
+  },
+  {
+    "IlId": 15,
+    "IlAdi": "BURDUR"
+  },
+  {
+    "IlId": 16,
+    "IlAdi": "BURSA"
+  },
+  {
+    "IlId": 17,
+    "IlAdi": "ÇANAKKALE"
+  },
+  {
+    "IlId": 18,
+    "IlAdi": "ÇANKIRI"
+  },
+  {
+    "IlId": 19,
+    "IlAdi": "ÇORUM"
+  },
+  {
+    "IlId": 20,
+    "IlAdi": "DENİZLİ"
+  },
+  {
+    "IlId": 21,
+    "IlAdi": "DİYARBAKIR"
+  },
+  {
+    "IlId": 22,
+    "IlAdi": "EDİRNE"
+  },
+  {
+    "IlId": 23,
+    "IlAdi": "ELAZIĞ"
+  },
+  {
+    "IlId": 24,
+    "IlAdi": "ERZİNCAN"
+  },
+  {
+    "IlId": 25,
+    "IlAdi": "ERZURUM"
+  },
+  {
+    "IlId": 26,
+    "IlAdi": "ESKİŞEHİR"
+  },
+  {
+    "IlId": 27,
+    "IlAdi": "GAZİANTEP"
+  },
+  {
+    "IlId": 28,
+    "IlAdi": "GİRESUN"
+  },
+  {
+    "IlId": 29,
+    "IlAdi": "GÜMÜŞHANE"
+  },
+  {
+    "IlId": 30,
+    "IlAdi": "HAKKARİ"
+  },
+  {
+    "IlId": 31,
+    "IlAdi": "HATAY"
+  },
+  {
+    "IlId": 32,
+    "IlAdi": "ISPARTA"
+  },
+  {
+    "IlId": 33,
+    "IlAdi": "MERSİN"
+  },
+  {
+    "IlId": 34,
+    "IlAdi": "İSTANBUL"
+  },
+  {
+    "IlId": 35,
+    "IlAdi": "İZMİR"
+  },
+  {
+    "IlId": 36,
+    "IlAdi": "KARS"
+  },
+  {
+    "IlId": 37,
+    "IlAdi": "KASTAMONU"
+  },
+  {
+    "IlId": 38,
+    "IlAdi": "KAYSERİ"
+  },
+  {
+    "IlId": 39,
+    "IlAdi": "KIRKLARELİ"
+  },
+  {
+    "IlId": 40,
+    "IlAdi": "KIRŞEHİR"
+  },
+  {
+    "IlId": 42,
+    "IlAdi": "KONYA"
+  },
+  {
+    "IlId": 43,
+    "IlAdi": "KÜTAHYA"
+  },
+  {
+    "IlId": 44,
+    "IlAdi": "MALATYA"
+  },
+  {
+    "IlId": 45,
+    "IlAdi": "MANİSA"
+  },
+  {
+    "IlId": 46,
+    "IlAdi": "KAHRAMANMARAŞ"
+  },
+  {
+    "IlId": 47,
+    "IlAdi": "MARDİN"
+  },
+  {
+    "IlId": 48,
+    "IlAdi": "MUĞLA"
+  },
+  {
+    "IlId": 49,
+    "IlAdi": "MUŞ"
+  },
+  {
+    "IlId": 50,
+    "IlAdi": "NEVŞEHİR"
+  },
+  {
+    "IlId": 51,
+    "IlAdi": "NİĞDE"
+  },
+  {
+    "IlId": 52,
+    "IlAdi": "ORDU"
+  },
+  {
+    "IlId": 53,
+    "IlAdi": "RİZE"
+  },
+  {
+    "IlId": 55,
+    "IlAdi": "SAMSUN"
+  },
+  {
+    "IlId": 56,
+    "IlAdi": "SİİRT"
+  },
+  {
+    "IlId": 57,
+    "IlAdi": "SİNOP"
+  },
+  {
+    "IlId": 58,
+    "IlAdi": "SİVAS"
+  },
+  {
+    "IlId": 59,
+    "IlAdi": "TEKİRDAĞ"
+  },
+  {
+    "IlId": 60,
+    "IlAdi": "TOKAT"
+  },
+  {
+    "IlId": 61,
+    "IlAdi": "TRABZON"
+  },
+  {
+    "IlId": 62,
+    "IlAdi": "TUNCELİ"
+  },
+  {
+    "IlId": 63,
+    "IlAdi": "ŞANLIURFA"
+  },
+  {
+    "IlId": 64,
+    "IlAdi": "UŞAK"
+  },
+  {
+    "IlId": 65,
+    "IlAdi": "VAN"
+  },
+  {
+    "IlId": 66,
+    "IlAdi": "YOZGAT"
+  },
+  {
+    "IlId": 67,
+    "IlAdi": "ZONGULDAK"
+  },
+  {
+    "IlId": 68,
+    "IlAdi": "AKSARAY"
+  },
+  {
+    "IlId": 69,
+    "IlAdi": "BAYBURT"
+  },
+  {
+    "IlId": 70,
+    "IlAdi": "KARAMAN"
+  },
+  {
+    "IlId": 71,
+    "IlAdi": "KIRIKKALE"
+  },
+  {
+    "IlId": 72,
+    "IlAdi": "BATMAN"
+  },
+  {
+    "IlId": 73,
+    "IlAdi": "ŞIRNAK"
+  },
+  {
+    "IlId": 74,
+    "IlAdi": "BARTIN"
+  },
+  {
+    "IlId": 75,
+    "IlAdi": "ARDAHAN"
+  },
+  {
+    "IlId": 76,
+    "IlAdi": "IĞDIR"
+  },
+  {
+    "IlId": 77,
+    "IlAdi": "YALOVA"
+  },
+  {
+    "IlId": 78,
+    "IlAdi": "KARABÜK"
+  },
+  {
+    "IlId": 79,
+    "IlAdi": "KİLİS"
+  },
+  {
+    "IlId": 80,
+    "IlAdi": "OSMANİYE"
+  },
+  {
+    "IlId": 81,
+    "IlAdi": "DÜZCE"
+  },
+  {
+    "IlId": 41,
+    "IlAdi": "KOCAELİ"
+  },
+  {
+    "IlId": 54,
+    "IlAdi": "SAKARYA"
+  }
+]

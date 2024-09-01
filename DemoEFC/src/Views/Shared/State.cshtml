@@ -1,0 +1,16 @@
+﻿@model List<State>
+
+<h1>States</h1>
+
+@if(Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+        <p class="badge text-bg-danger d-table">@item.StateName</p>
+
+        foreach (var subitem in item.Cities ?? Enumerable.Empty<City>())
+        {
+            <p class="badge text-bg-warning">@subitem.CityName</p>
+        }
+    }
+}
