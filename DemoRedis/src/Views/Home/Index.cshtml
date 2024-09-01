@@ -1,0 +1,22 @@
+<div class="row m-4">
+
+	<h1>Redis Demo</h1>
+
+	<form method="post" asp-controller="Home">
+
+		<input type="submit" value="Redis1" asp-action="Redis1" />
+		<input type="submit" value="Redis2" asp-action="Redis2" />
+		<input type="submit" value="DistributedCache" asp-action="DistributedCache" />
+
+	</form>
+
+</div>
+
+@if (TempData["Message"] != null)
+{
+	<script type="text/javascript">
+		window.onload = function () {
+			alert('@TempData["Message"]');
+		};
+	</script>
+}

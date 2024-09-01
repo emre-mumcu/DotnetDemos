@@ -5,6 +5,12 @@ dotnet new sln
 dotnet sln add src/.
 dotnet restore
 
+If you want to use dotnet development certificate just run the following code:
+
+```zsh
+% dotnet dev-certs https --trust
+```
+
 ## 2. Edit launchsettings.json to use Https
 
 Edit the launchsettings.json file as follows:
