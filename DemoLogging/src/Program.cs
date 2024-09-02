@@ -3,6 +3,10 @@ using src.App_Lib;
 
 try
 {
+	var commandLine = System.Text.Json.JsonSerializer.Serialize(Environment.CommandLine);
+
+	var IsMigration = commandLine.Contains("ef.dll");
+
 	var builder = WebApplication.CreateBuilder(args);
 
 	builder.Configuration.AddJsonFile($"data.json", optional: false, reloadOnChange: false);
@@ -15,12 +19,17 @@ try
 
 	builder.Logging.AddConsole();
 
-	// builder.Services.AddSingleton<ILoggerProvider, CustomLoggerProvider>();
-	builder.Logging.AddProvider(new CustomLoggerProvider());
+	if (!IsMigration)
+	{
+		// builder.Services.AddSingleton<ILoggerProvider, CustomLoggerProvider>();
+		builder.Logging.AddProvider(new CustomLoggerProvider());
+	}
 
 	builder.Services.AddControllersWithViews();
 
 	var app = builder.Build();
+
+	var logger = app.Services.GetRequiredService<ILogger<Program>>();
 
 	App.Instance.WebHostEnvironment = app.Services.GetRequiredService<IWebHostEnvironment>();
 

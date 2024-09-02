@@ -5,6 +5,7 @@ namespace src.App_Lib
 	public class LoggingDbContext : DbContext
 	{
 		public LoggingDbContext() { }
+
 		public LoggingDbContext(DbContextOptions<LoggingDbContext> options) : base(options) { }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -15,8 +16,8 @@ namespace src.App_Lib
 
 			if (!optionsBuilder.IsConfigured)
 			{
-				string? connectionString = App.Instance.DataConfiguration.GetConnectionString("LoggingConnection");
-				optionsBuilder.UseSqlite(connectionString: connectionString!);
+				string? cs = App.Instance.DataConfiguration.GetConnectionString("LoggingConnection");
+				optionsBuilder.UseSqlite(connectionString: cs!);
 			}
 		}
 
@@ -25,10 +26,8 @@ namespace src.App_Lib
 			// if (System.Diagnostics.Debugger.IsAttached == false) System.Diagnostics.Debugger.Launch();
 
 			base.OnModelCreating(modelBuilder);
-
+			
 			modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
-
-			// modelBuilder.SeedData();
 		}
 
 		public virtual DbSet<LogEntry> LogEntries => Set<LogEntry>();
