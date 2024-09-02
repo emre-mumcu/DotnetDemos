@@ -90,3 +90,25 @@ $(document).ready(function () {
 });
 ```
 
+# Different Types of Service Registrations
+
+```cs
+builder.Services.AddSingleton<ILoggerProvider>(sp => new CustomLoggerProvider(() => sp.GetRequiredService<LoggingDbContext>()));
+builder.Services.AddSingleton<ILoggerProvider>(sp => new CustomLoggerProvider(sp.GetRequiredService<LoggingDbContext>()));
+builder.Logging.ClearProviders();
+builder.Logging.AddProvider(new CustomLoggerProvider(builder.Services.BuildServiceProvider().GetRequiredService<LoggingDbContext>()));
+builder.Services.AddSingleton<ILoggerProvider, CustomLoggerProvider>();
+builder.Services.AddSingleton<IService>(serviceProvider => new Service(serviceProvider.GetRequiredService<IOtherService>(), serviceProvider.GetRequiredService<IAnotherOne>(), ""));
+builder.Services.AddSingleton<IService>(serviceProvider => ActivatorUtilities.CreateInstance<Service>(serviceProvider, ""););
+
+builder.Logging.ClearProviders();
+
+ServiceProvider serviceProvider = new ServiceCollection()
+    .AddDbContext(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")))
+    .BuildServiceProvider();
+
+builder.Logging.AddProvider(new CustomLoggerProvider(serviceProvider.GetRequiredService<LoggingDbContext>()));
+
+
+```
+

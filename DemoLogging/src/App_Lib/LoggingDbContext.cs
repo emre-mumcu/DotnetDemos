@@ -8,9 +8,34 @@ namespace src.App_Lib
 {
 	public class LoggingDbContext : DbContext
 	{
+		public LoggingDbContext() { }
 		public LoggingDbContext(DbContextOptions<LoggingDbContext> options) : base(options) { }
 
-		public DbSet<LogEntry> LogEntries { get; set; }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			// if (System.Diagnostics.Debugger.IsAttached == false) System.Diagnostics.Debugger.Launch();
+
+			base.OnConfiguring(optionsBuilder);
+
+			if (!optionsBuilder.IsConfigured)
+			{
+				string? connectionString = App.Instance.DataConfiguration.GetConnectionString("DefaultConnection");
+				optionsBuilder.UseSqlite(connectionString: connectionString!);
+			}
+		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			// if (System.Diagnostics.Debugger.IsAttached == false) System.Diagnostics.Debugger.Launch();
+
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
+
+			// modelBuilder.SeedData();
+		}
+
+		public virtual DbSet<LogEntry> LogEntries => Set<LogEntry>();
 	}
 
 	public class LogEntry

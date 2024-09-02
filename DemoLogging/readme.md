@@ -131,6 +131,9 @@ dotnet add package Microsoft.EntityFrameworkCore
 dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 
+dotnet tool install --global dotnet-ef
+dotnet tool update --global dotnet-ef
+
 dotnet ef migrations add Mig0
 dotnet ef database update
 
