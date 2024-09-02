@@ -9,13 +9,13 @@ builder.Services.AddDbContext<LoggingDbContext>(options =>
 	options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// builder.Logging.ClearProviders();
+builder.Logging.ClearProviders();
 
-// ServiceProvider serviceProvider = new ServiceCollection()
-// 	.AddDbContext(options => options.UseSqlite(connectionString: builder.Configuration.GetConnectionString("DefaultConnection")))
-// 	.BuildServiceProvider();
+ServiceProvider serviceProvider = new ServiceCollection()
+	.AddDbContext<LoggingDbContext>(op => op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")))
+	.BuildServiceProvider();
 
-// builder.Logging.AddProvider(new CustomLoggerProvider(serviceProvider.GetRequiredService<LoggingDbContext>()));
+builder.Logging.AddProvider(new CustomLoggerProvider(serviceProvider.GetRequiredService<LoggingDbContext>()));
 
 builder.Services.AddControllersWithViews();
 
