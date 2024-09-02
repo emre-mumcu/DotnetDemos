@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace src.App_Lib
@@ -19,7 +15,7 @@ namespace src.App_Lib
 
 			if (!optionsBuilder.IsConfigured)
 			{
-				string? connectionString = App.Instance.DataConfiguration.GetConnectionString("DefaultConnection");
+				string? connectionString = App.Instance.DataConfiguration.GetConnectionString("LoggingConnection");
 				optionsBuilder.UseSqlite(connectionString: connectionString!);
 			}
 		}

@@ -110,5 +110,24 @@ ServiceProvider serviceProvider = new ServiceCollection()
 builder.Logging.AddProvider(new CustomLoggerProvider(serviceProvider.GetRequiredService<LoggingDbContext>()));
 
 
+	builder.Services.AddSingleton<ILoggerProvider, CustomLoggerProvider>(sp =>
+	{
+		var scope = sp.CreateScope();
+		
+			var dbContext = scope.ServiceProvider.GetRequiredService<LoggingDbContext>();
+			return new CustomLoggerProvider(dbContext);
+		
+	});
+
+		// ServiceProvider serviceProvider = new ServiceCollection()
+	// 	.AddDbContext<LoggingDbContext>(op => op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")))
+	// 	.BuildServiceProvider();
+
+	// builder.Logging.AddProvider(new CustomLoggerProvider(serviceProvider.GetRequiredService<LoggingDbContext>()));
+
+
+		// builder.Services.AddSingleton<ILoggerProvider, CustomLoggerProvider>();
+	builder.Logging.AddProvider(new CustomLoggerProvider());
+
 ```
 

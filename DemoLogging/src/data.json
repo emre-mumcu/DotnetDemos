@@ -1,5 +1,6 @@
 {
 	"ConnectionStrings": {
-		"DefaultConnection": "Data Source=mydb.db;"
+		"DefaultConnection": "Data Source=app.db;",
+		"LoggingConnection": "Data Source=log.db;"
 	}
 }

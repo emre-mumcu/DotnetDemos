@@ -1,40 +1,58 @@
 using Microsoft.EntityFrameworkCore;
 using src.App_Lib;
 
-var builder = WebApplication.CreateBuilder(args);
+try
+{
+	var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile($"data.json", optional: false, reloadOnChange: false);
+	builder.Configuration.AddJsonFile($"data.json", optional: false, reloadOnChange: false);
 
-builder.Services.AddDbContext<LoggingDbContext>(options =>
-	options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+	builder.Services.AddDbContext<LoggingDbContext>(options =>
+		options.UseSqlite(builder.Configuration.GetConnectionString("LoggingConnection"))
+	);
 
-builder.Logging.ClearProviders();
+	builder.Logging.ClearProviders();
 
-ServiceProvider serviceProvider = new ServiceCollection()
-	.AddDbContext<LoggingDbContext>(op => op.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")))
-	.BuildServiceProvider();
+	builder.Logging.AddConsole();
 
-builder.Logging.AddProvider(new CustomLoggerProvider(serviceProvider.GetRequiredService<LoggingDbContext>()));
+	// builder.Services.AddSingleton<ILoggerProvider, CustomLoggerProvider>();
+	builder.Logging.AddProvider(new CustomLoggerProvider());
 
-builder.Services.AddControllersWithViews();
+	builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
+	var app = builder.Build();
 
-App.Instance.WebHostEnvironment = app.Services.GetRequiredService<IWebHostEnvironment>();
+	App.Instance.WebHostEnvironment = app.Services.GetRequiredService<IWebHostEnvironment>();
 
-app.UseHttpsRedirection();
+	app.UseHttpsRedirection();
 
-app.UseStaticFiles();
+	app.UseStaticFiles();
 
-app.UseRouting();
+	app.UseRouting();
 
-app.UseAuthorization();
+	app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
+	app.MapDefaultControllerRoute();
 
-app.Run();
-
+	app.Run();
+}
+catch (Exception ex)
+{
+	Host.CreateDefaultBuilder(args)
+		.ConfigureServices(services => { services.AddMvc(); })
+		.ConfigureWebHostDefaults(webBuilder =>
+		{
+			webBuilder.Configure((ctx, app) =>
+			{
+				app.Run(async (context) =>
+				{
+					await context.Response.WriteAsync($"Error in application: {ex.Message} {ex.InnerException?.Message}");
+				});
+			});
+		})
+		.Build()
+		.Run();
+}
 
 public sealed class App
 {
