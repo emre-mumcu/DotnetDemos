@@ -74,6 +74,9 @@ appsettings.json
   }
 }
 
+dotnet ef migrations script -o script.sql
+dotnet ef migrations script Mig0 Mig1 -o script.sql [-c ProjectHavingDbContext] [-s StartupProject] 
+
 # DbContext Lifetime, Configuration, and Initialization
 
 https://learn.microsoft.com/en-us/ef/core/dbcontext-configuration/

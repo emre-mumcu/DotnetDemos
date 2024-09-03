@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using src.App_Lib.Entities;
 
 namespace src.App_Lib
 {
@@ -41,6 +42,15 @@ namespace src.App_Lib
 			modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
 		}
 
-		// public virtual DbSet<EntityObj> Entities => Set<EntityObj>();
+		public virtual DbSet<Doc> Documents => Set<Doc>();
+		public virtual DbSet<DocHeader> DocHeaders => Set<DocHeader>();
+		public virtual DbSet<Blog> Blogs => Set<Blog>();
+		public virtual DbSet<Post> Posts => Set<Post>();
+		public virtual DbSet<Entry> Entries => Set<Entry>();
+		public virtual DbSet<Tag> Tags => Set<Tag>();
+
+        
+
+
 	}
 }

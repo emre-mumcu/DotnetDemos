@@ -1,6 +1,8 @@
 namespace src.App_Lib.Entities;
 
-public class Post
+// Basic many-to-many
+
+public class Entry
 {
 	public int Id { get; set; }
 	public List<Tag> Tags { get; } = [];
@@ -9,10 +11,11 @@ public class Post
 public class Tag
 {
 	public int Id { get; set; }
-	public List<Post> Posts { get; } = [];
+	public List<Entry> Entries { get; } = [];
 }
 
 /*
+
 https://learn.microsoft.com/en-us/ef/core/modeling/relationships/many-to-many
 
 Many-to-many relationships are used when any number entities of one entity type is associated with any number of entities of the same or another entity type. For example, a Post can have many associated Tags, and each Tag can in turn be associated with any number of Posts.
@@ -187,12 +190,13 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             });
 }
 
+In either case, the mapping remains the same, with only the foreign key column names changed:
 
+CREATE TABLE "PostTag" (
+    "PostForeignKey" INTEGER NOT NULL,
+    "TagForeignKey" INTEGER NOT NULL,
+    CONSTRAINT "PK_PostTag" PRIMARY KEY ("PostForeignKey", "TagForeignKey"),
+    CONSTRAINT "FK_PostTag_Posts_PostForeignKey" FOREIGN KEY ("PostForeignKey") REFERENCES "Posts" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_PostTag_Tags_TagForeignKey" FOREIGN KEY ("TagForeignKey") REFERENCES "Tags" ("Id") ON DELETE CASCADE);
 
 */
-
-
-
-
-
-
