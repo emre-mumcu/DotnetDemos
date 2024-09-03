@@ -26,4 +26,9 @@ public class HomeController : Controller
 
 		return View();
     }
+
+	public IActionResult DbContextDI([FromServices] AppDbContext appDbContext)
+	{
+		return View();
+	}
 }

@@ -14,7 +14,7 @@ namespace src.App_Lib
 		public AppDbContext CreateDbContext(string[] args)
 		{
 			var config = new ConfigurationBuilder()
-				.SetBasePath(Directory.GetCurrentDirectory())
+				// .SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("data.json", optional: false)
 				.Build();
 
