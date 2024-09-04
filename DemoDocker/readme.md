@@ -6,6 +6,7 @@ To start all the services defined in your compose.yaml file:
 
 ```zsh
 % docker compose up -d
+# -d: detached
 ```
 
 To stop and remove the running services:
@@ -155,32 +156,32 @@ networks:
 
 ### Network Drivers
 
-bridge: The default network driver. If you don't specify a driver, this is the type of network you are creating. Bridge networks are commonly used when your application runs in a container that needs to communicate with other containers on the same host.
+* bridge: The default network driver. If you don't specify a driver, this is the type of network you are creating. Bridge networks are commonly used when your application runs in a container that needs to communicate with other containers on the same host.
 
-host: Remove network isolation between the container and the Docker host, and use the host's networking directly.
+* host: Remove network isolation between the container and the Docker host, and use the host's networking directly.
 
-overlay: Overlay networks connect multiple Docker daemons together and enable Swarm services and containers to communicate across nodes.
+* overlay: Overlay networks connect multiple Docker daemons together and enable Swarm services and containers to communicate across nodes.
 
-ipvlan: IPvlan networks give users total control over both IPv4 and IPv6 addressing.
+* ipvlan: IPvlan networks give users total control over both IPv4 and IPv6 addressing.
 
-macvlan: Macvlan networks allow you to assign a MAC address to a container, making it appear as a physical device on your network.
+* macvlan: Macvlan networks allow you to assign a MAC address to a container, making it appear as a physical device on your network.
 
-none: Completely isolate a container from the host and other containers. none is not available for Swarm services.
+* none: Completely isolate a container from the host and other containers. none is not available for Swarm services.
 
 ### Published ports
 
 By default, when you create or run a container using docker create or docker run, containers on bridge networks don't expose any ports to the outside world. Use the --publish or -p flag to make a port available to services outside the bridge network. This creates a firewall rule in the host, mapping a container port to a port on the Docker host to the outside world.
 
--p 8080:80	
+* -p 8080:80	
 Map port 8080 on the Docker host to TCP port 80 in the container.
 
--p 192.168.1.100:8080:80	
+* -p 192.168.1.100:8080:80	
 Map port 8080 on the Docker host IP 192.168.1.100 to TCP port 80 in the container.
 
--p 8080:80/udp	
+* -p 8080:80/udp	
 Map port 8080 on the Docker host to UDP port 80 in the container.
 
--p 8080:80/tcp -p 8080:80/udp	
+* -p 8080:80/tcp -p 8080:80/udp	
 Map TCP port 8080 on the Docker host to TCP port 80 in the container, and map UDP port 8080 on the Docker host to UDP port 80 in the container.
 
 Publishing container ports is insecure by default. Meaning, when you publish a container's ports it becomes available not only to the Docker host, but to the outside world as well.
@@ -217,7 +218,7 @@ Running docker compose up creates the volume if it doesn't already exist. Otherw
 
 # References
 
-https://docs.docker.com/reference/compose-file/
-https://docs.docker.com/compose/compose-application-model/
-https://github.com/docker/awesome-compose
-https://docs.docker.com/reference/
+* https://docs.docker.com/reference/compose-file/
+* https://docs.docker.com/compose/compose-application-model/
+* https://github.com/docker/awesome-compose
+* https://docs.docker.com/reference/
