@@ -58,35 +58,36 @@ Each configuration has a project name. Compose sets the project name using the f
 * The basename of the project directory containing the config file (or containing the first config file specified using -f)
 * The basename of the current directory if no config file is specified Project names must contain only lowercase letters, decimal digits, dashes, and underscores, and must begin with a lowercase letter or decimal digit. If the basename of the project directory or current directory violates this constraint, you must use one of the other mechanisms.
 
-| Command	                | Description
-| docker compose alpha		| Experimental commands
-| docker compose build		| Build or rebuild services
-| docker compose config		| Parse, resolve and render compose file in canonical format
-| docker compose cp	    	| Copy files/folders between a service container and the local filesystem
-| docker compose create		| Creates containers for a service
-| docker compose down	    | Stop and remove containers, networks
-| docker compose events		| Receive real time events from containers
-| docker compose exec	    | Execute a command in a running container
-| docker compose images		| List images used by the created containers
-| docker compose kill	    | Force stop service containers
-| docker compose logs	    | View output from containers
-| docker compose ls	    	| List running compose projects
-| docker compose pause		| Pause services
-| docker compose port	    | Print the public port for a port binding
-| docker compose ps	    	| List containers
-| docker compose pull	    | Pull service images
-| docker compose push	    | Push service images
-| docker compose restart	| Restart service containers
-| docker compose rm	    	| Removes stopped service containers
-| docker compose run	    | Run a one-off command on a service
-| docker compose start		| Start services
-| docker compose stop	    | Stop services
-| docker compose top	    | Display the running processes
-| docker compose unpause	| Unpause services
-| docker compose up	    	| Create and start containers
-| docker compose version	| Show the Docker Compose version information
-| docker compose wait	    | Block until the first service container stops
-| docker compose watch		| Watch build context for service and rebuild/refresh containers when files are updated
+| Command	                | Description|
+|---------------------------|------------|
+| docker compose alpha		| Experimental commands|
+| docker compose build		| Build or rebuild services|
+| docker compose config		| Parse, resolve and render compose file in canonical format|
+| docker compose cp	    	| Copy files/folders between a service container and the local filesystem|
+| docker compose create		| Creates containers for a service|
+| docker compose down	    | Stop and remove containers, networks|
+| docker compose events		| Receive real time events from containers|
+| docker compose exec	    | Execute a command in a running container|
+| docker compose images		| List images used by the created containers|
+| docker compose kill	    | Force stop service containers|
+| docker compose logs	    | View output from containers|
+| docker compose ls	    	| List running compose projects|
+| docker compose pause		| Pause services|
+| docker compose port	    | Print the public port for a port binding|
+| docker compose ps	    	| List containers|
+| docker compose pull	    | Pull service images|
+| docker compose push	    | Push service images|
+| docker compose restart	| Restart service containers|
+| docker compose rm	    	| Removes stopped service containers|
+| docker compose run	    | Run a one-off command on a service|
+| docker compose start		| Start services|
+| docker compose stop	    | Stop services|
+| docker compose top	    | Display the running processes|
+| docker compose unpause	| Unpause services|
+| docker compose up	    	| Create and start containers|
+| docker compose version	| Show the Docker Compose version information|
+| docker compose wait	    | Block until the first service container stops|
+| docker compose watch		| Watch build context for service and rebuild/refresh containers when files are updated |
 
 # Docker Compose File
 
