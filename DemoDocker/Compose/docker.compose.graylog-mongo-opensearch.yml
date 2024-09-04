@@ -1,5 +1,3 @@
-# docker compose -f docker.compose.graylog-mongo-opensearch.yml config
-
 name: Graylog
 
 services:

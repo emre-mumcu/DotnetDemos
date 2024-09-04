@@ -2,38 +2,6 @@
 
 The Docker CLI lets you interact with your Docker Compose applications through the docker compose command, and its subcommands.
 
-To start all the services defined in your compose.yaml file:
-
-```zsh
-% docker compose up -d
-# -d: detached
-```
-
-To stop and remove the running services:
-
-```zsh
-docker compose down 
-```
-
-If you want to monitor the output of your running containers and debug issues, you can view the logs with:
-
-```zsh
-docker compose logs
-```
-
-To lists all the services along with their current status:
-
-```zsh
-docker compose ps
-```
-
-```zsh
-# docker dommands
-% docker --version
-% docker context ls
-% docker context use default
-```
-
 ## Use -f to specify the name and path of one or more Compose files
 
 ```zsh
@@ -89,7 +57,6 @@ Each configuration has a project name. Compose sets the project name using the f
 
 ```zsh
 # samples
-
 docker compose -f *.yml config
 docker compose -f *.yml logs
 docker compose -f *.yml up
