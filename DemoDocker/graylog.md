@@ -1,3 +1,22 @@
+```
+graylog:      
+    volumes:      
+      -    graylog_example.conf :/usr/share/graylog/data/config/graylog.conf
+```
+
+    environment:     
+	- GRAYLOG_ELASTICSEARCH_VERSION=7 
+      - GRAYLOG_PASSWORD_SECRET=somepasswordpepper      
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
+      - GRAYLOG_HTTP_ENABLE_CORS=true
+      - GRAYLOG_METRICS_PROMETHEUS_ENABLED=true
+      - GRAYLOG_ELASTICSEARCH_HOSTS=http://opensearch:9200
+      - GRAYLOG_SKIP_PREFLIGHT_CHECKS=true
+      - GRAYLOG_INTEGRATIONS_SCRIPTS_DIR=/usr/share/graylog/scripts
+
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=thYud4534_?" opensearchproject/opensearch:2.12.0
+
 # Graylog
 
 https://go2docs.graylog.org/current/downloading_and_installing_graylog/docker_installation.htm?TocPath=Installing%20Graylog%7C_____2
