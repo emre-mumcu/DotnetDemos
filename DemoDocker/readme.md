@@ -31,11 +31,6 @@ docker compose ps
 % docker --version
 % docker context ls
 % docker context use default
-
-# docker compose commands
-docker compose -f *.yml config
-docker compose -f *.yml logs
-docker compose -f *.yml up
 ```
 
 ## Use -f to specify the name and path of one or more Compose files
@@ -57,6 +52,8 @@ Each configuration has a project name. Compose sets the project name using the f
 * The top level name: variable from the config file (or the last name: from a series of config files specified using -f)
 * The basename of the project directory containing the config file (or containing the first config file specified using -f)
 * The basename of the current directory if no config file is specified Project names must contain only lowercase letters, decimal digits, dashes, and underscores, and must begin with a lowercase letter or decimal digit. If the basename of the project directory or current directory violates this constraint, you must use one of the other mechanisms.
+
+## Docker Compose Commands
 
 | Command	                | Description|
 |---------------------------|------------|
@@ -88,6 +85,14 @@ Each configuration has a project name. Compose sets the project name using the f
 | docker compose version	| Show the Docker Compose version information|
 | docker compose wait	    | Block until the first service container stops|
 | docker compose watch		| Watch build context for service and rebuild/refresh containers when files are updated |
+
+```zsh
+# samples
+
+docker compose -f *.yml config
+docker compose -f *.yml logs
+docker compose -f *.yml up
+```
 
 # Docker Compose File
 
