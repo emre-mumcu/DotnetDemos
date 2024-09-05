@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica&display=swap');
+
+body {
+    font-family: "Geologica", sans-serif;
+}
+
+.jumbotron {    
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.1);    
+    padding: 20px;
+    margin: 20px 0;
+}
