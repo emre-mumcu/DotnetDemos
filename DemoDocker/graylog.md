@@ -1,3 +1,8 @@
+docker network create rabbitnet
+docker run -d --network rabbitnet
+docker logs some-rabbit
+
+
 ```
 graylog:      
     volumes:      
