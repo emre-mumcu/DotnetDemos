@@ -54,7 +54,7 @@ Create the minio container using the following docker command:
    -v /Users/emre/DockerVol/minio/data:/data \
    -v /Users/emre/DockerVol/minio/ssl:/opt/minio/certs \
    -e "MINIO_ROOT_USER=root" \
-   -e "MINIO_ROOT_PASSWORD=root" \
+   -e "MINIO_ROOT_PASSWORD=aA123456" \
    quay.io/minio/minio server /data --console-address ":9001" --certs-dir "/opt/minio/certs"
 ```
 
