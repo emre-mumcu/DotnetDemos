@@ -1,3 +1,42 @@
+docker exec -it <mycontainer> sh
+docker exec -it minio sh
+
+cd /opt
+mkdir certs
+
+docker ps
+
+docker cp [SOURCE_PATH] [CONTAINER_ID]:[DESTINATION_PATH]
+
+To enable TLS for MinIO. You may use TLS certificates from a well-known Certificate Authority, an internal or private CA, or self-signed certs.
+
+mkcert -cert-file minio.crt -key-file minio.key localhost 127.0.0.1
+
+Start the MinIO container with the `minio/minio:latest server --certs-dir` parameter and specify the path to a directory in which MinIO searches for certificates. You must mount a local host volume to that path when starting the container to ensure the MinIO Server can access the necessary certificates.
+
+Place the TLS certificates for the default domain (e.g. minio.example.net) in the specified directory, with the private key as private.key and public certificate as public.crt. For example:
+
+/opts/certs
+  private.key
+  public.crt
+
+Move the certificates to the local host machine path that the container mounts to its --certs-dir path. When the MinIO container starts, the server searches the specified location for certificates and uses them to enable TLS. Applications can use the public.crt as a trusted Certificate Authority to allow connections to the MinIO deployment without disabling certificate validation.
+
+If you are reconfiguring an existing deployment that did not previously have TLS enabled, update MINIO_VOLUMES to specify https instead of http. You may also need to update URLs used by applications or clients.  
+
+https://min.io/docs/minio/container/operations/network-encryption.html
+
+
+
+
+
+
+
+
+
+
+
+
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-6.0#attribute-routing-for-rest-apis
 // https://docs.min.io/docs/dotnet-client-quickstart-guide.html
 // https://docs.min.io/docs/dotnet-client-api-reference.html
@@ -24,17 +63,40 @@ docker command (using local data volume):
 docker command (using data volume):
 
 ```zsh
-% mkdir -p ~/minio/data
+% mkdir -p /Users/emre/DockerVol/minio/data
+% mkdir -p /Users/emre/DockerVol/minio/ssl
+
+# mkcert
+% mkcert -cert-file minio.crt -key-file minio.key localhost 127.0.0.1
+# copy public.crt and private.key files to host /Users/emre/DockerVol/minio/ssl path
+/opt/minio/certs
+  private.key
+  public.crt
+# run the following command:
+
 
 % docker run -d \
    -p 9000:9000 \
    -p 9001:9001 \
+   --hostname localhost \
    --name minio \
-   -v ~/minio/data:/data \
+   -v /Users/emre/DockerVol/minio/data:/data \
+   -v /Users/emre/DockerVol/minio/ssl:/opt/minio/certs \
    -e "MINIO_ROOT_USER=ROOTNAME" \
    -e "MINIO_ROOT_PASSWORD=CHANGEME123" \
-   quay.io/minio/minio server /data --console-address ":9001"
+   quay.io/minio/minio server /data --console-address ":9001" --certs-dir "/opt/minio/certs"
 ```
+
+
+```zsh
+#NOTE
+#Create a Docker Volume for Certificates
+% docker volume create minio-certificates
+
+# Copy the Certificates to the Volume
+
+```
+
 
 
 docker compose command:
