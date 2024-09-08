@@ -1,0 +1,169 @@
+@model List<Minio.DataModel.Bucket>
+
+<main class="flex-shrink-0">
+
+	<div class="container">
+
+		<h1 class="mt-5">Bucket List</h1>
+		<a asp-controller="Home" asp-action="AddBucket" class="badge bg-primary text-decoration-none">Add Bucket</a>
+		<p class="lead">List of the buckets available on server:</p>
+
+		<table class="table table-striped">
+
+			<tr>
+				<th>Created Date (UTC)</th>
+				<th>Created Time</th>
+				<th>Bucket Name</th>
+				<th>Tools</th>
+			</tr>
+
+			@if (Model.Count == 0)
+			{
+				<tr>
+					<td colspan="4">No buckets found!</td>
+				</tr>
+			}
+
+			@foreach (Minio.DataModel.Bucket b in Model)
+			{
+				<tr>
+					<td>@b.CreationDate</td>
+					<td>@b.CreationDateDateTime</td>
+					<td>@b.Name</td>
+					<td>
+						
+						<span data-bucket-name="@b.Name" class="badge bg-secondary" data-bs-toggle="modal"
+							data-bs-target="#fileModal" data-bs-bucket="@b.Name">Add File</span>
+						<span data-bucket-name="@b.Name" class="badge bg-danger" onclick="Remove(this);">Remove Bucket</span>
+					</td>
+				</tr>
+			}
+
+		</table>
+
+	</div>
+
+</main>
+
+<div class="modal fade" id="fileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">File Upload</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form asp-action="PutObject" asp-controller="Home" class="dropzone" id="fileForm" name="fileForm">
+					<input type="hidden" name="FileBucketName" id="FileBucketName" value="" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scriptSection {
+
+	<script>
+
+		var myFileModal = document.getElementById('fileModal');
+
+		myFileModal.addEventListener('show.bs.modal', function (event) {
+			var trigger = event.relatedTarget;
+			var selectedBucket = trigger.getAttribute('data-bs-bucket');
+			var bucketInput = myFileModal.querySelector('#FileBucketName');
+			bucketInput.value = selectedBucket; // input dışı için textContent, input için value
+
+
+
+
+		})
+
+
+		Dropzone.options.fileForm = { // camelized version of the id property
+			paramName: "file", // default is file
+			maxFilesize: 1, // MB
+			dictDefaultMessage: "Click or Drop"
+		};
+
+		function gettoken() {
+			var token = '@Html.AntiForgeryToken()';
+			token = $(token).val();
+			return token;
+		}
+
+		function Remove(elm) {
+			var bucketName = elm.dataset.bucketName;
+
+			var result = confirm(`Are you sure to remove **${bucketName}** bucket`);
+
+			if (result) {
+				$.post('@Url.Content("~/Home/RemoveBucket")', { __RequestVerificationToken: gettoken(), BucketName: bucketName })
+					.done(function (msg) {
+						console.log(msg);
+						location.reload();
+					})
+					.fail(function (xhr, textStatus, errorThrown) {
+						console.log(xhr);
+						console.log(textStatus);
+						console.log(errorThrown);
+					});
+			}
+		}
+
+	</script>
+
+}
+
+@section styleSection {
+
+	<style>
+		span.badge {
+			cursor: pointer;
+		}
+	</style>
+
+}
+
+@*
+
+$.post( "", function( data ) {
+$( ".result" ).html( data );
+});
+
+$.post('status.ajax.php', {deviceId: id})
+.done( function(msg) { ... } )
+.fail( function(xhr, textStatus, errorThrown) {
+alert(xhr.responseText);
+});
+
+
+$.ajax({
+type: "POST",
+url: "some.php",
+data: "name=John&location=Boston",
+success: function(msg){
+alert( "Data Saved: " + msg );
+},
+error: function(XMLHttpRequest, textStatus, errorThrown) {
+alert("some error");
+}
+});
+
+//Dropzone.prototype.defaultOptions.dictDefaultMessage = "Drop files here to upload";
+//Dropzone.prototype.defaultOptions.dictFallbackMessage = "Your browser does not support drag'n'drop file uploads.";
+//Dropzone.prototype.defaultOptions.dictFallbackText = "Please use the fallback form below to upload your files like in
+the olden days.";
+//Dropzone.prototype.defaultOptions.dictFileTooBig = "File is too big ({{filesize}}MiB). Max filesize:
+{{maxFilesize}}MiB.";
+//Dropzone.prototype.defaultOptions.dictInvalidFileType = "You can't upload files of this type.";
+//Dropzone.prototype.defaultOptions.dictResponseError = "Server responded with {{statusCode}} code.";
+//Dropzone.prototype.defaultOptions.dictCancelUpload = "Cancel upload";
+//Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "Are you sure you want to cancel this upload?";
+//Dropzone.prototype.defaultOptions.dictRemoveFile = "Remove file";
+//Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "You can not upload any more files.";
+
+*@

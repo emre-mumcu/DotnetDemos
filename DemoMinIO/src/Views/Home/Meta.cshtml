@@ -1,0 +1,8 @@
+﻿@model List<Minio.DataModel.Item>
+
+<pre>
+@System.Text.Json.JsonSerializer.Serialize(Model, new System.Text.Json.JsonSerializerOptions
+{
+	WriteIndented = true // Pretty-print JSON
+})
+</pre>
