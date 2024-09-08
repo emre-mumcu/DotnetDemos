@@ -1,13 +1,10 @@
 using Minio;
-using Minio.DataModel.Args;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMinio(configureClient => {
-
 	var mc = builder.Configuration.GetSection("Minio").Get<MinioConfig>();
-
-		configureClient
+	configureClient
 		.WithEndpoint(mc!.Endpoint)
 		.WithCredentials(mc!.AccessKey, mc!.SecretKey)
 		.WithSSL()
