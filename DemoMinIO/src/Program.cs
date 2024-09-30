@@ -1,9 +1,12 @@
 using Minio;
+using src.App_Lib;
+using src.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Register IMinioClient to IoC 
 builder.Services.AddMinio(configureClient => {
-	var mc = builder.Configuration.GetSection("Minio").Get<MinioConfig>();
+	var mc = builder.Configuration.GetSection("Minio").Get<MinioConfigModel>();
 	configureClient
 		.WithEndpoint(mc!.Endpoint)
 		.WithCredentials(mc!.AccessKey, mc!.SecretKey)
@@ -11,6 +14,9 @@ builder.Services.AddMinio(configureClient => {
 		.Build();
 	}
 );
+
+// Register MinioManager to IoC
+builder.Services.AddSingleton<MinioManager>();
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
@@ -28,10 +34,3 @@ app.MapDefaultControllerRoute();
 
 app.Run();
 
-public class MinioConfig
-{
-	public string Endpoint { get; set; } = null!;
-	public string AccessKey { get; set; } = null!;
-	public string SecretKey { get; set; } = null!;
-	public string BucketName { get; set; } = null!;
-}

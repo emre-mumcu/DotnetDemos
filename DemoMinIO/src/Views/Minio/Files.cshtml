@@ -1,0 +1,111 @@
+﻿@model (List<Minio.DataModel.Item>? BucketItems, string BucketName)
+
+<div class="row">
+    <div class="col-12 my-4">
+        <h1 class="my-4"><i class="fa-solid fa-bucket mx-2"></i>BucketName</h1>
+        <div class="accordion">
+            @foreach (var item in Model.BucketItems ?? new List<Minio.DataModel.Item>())
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#_@item.ETag">
+                            <i class="fa-solid fa-file-lines mx-2"></i> @item.Key
+                        </button>
+                    </h2>
+                    <div id="_@item.ETag" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <pre>
+
+                               </pre>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scriptSection {
+
+    <script>
+
+        function gettoken() {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+
+            accordionButtons.forEach(button => {
+
+                button.addEventListener('click', function () {
+                    // querySelector must NOT start with number
+                    const targetId = this.getAttribute('data-bs-target');
+                    const contentElement = document.querySelector(targetId).querySelector('.accordion-body').querySelector('pre');
+
+                    @* $.get('@Url.Action("GetFileMeta", "Minio")', { BucketName: 'mybucket', FileName: 'f850a608-2aef-49ba-922f-623df53acb31.txt' }, function (response) {
+                        contentElement.innerHTML = response;
+                    }); *@
+                    $.post('@Url.Action("GetFileMeta2", "Minio")', 
+                        {
+                            BucketName: 'mybucket',
+                            FileName: 'f850a608-2aef-49ba-922f-623df53acb31.txt',
+                            __RequestVerificationToken: gettoken()
+                        })
+                        .done(function (response) {
+                            contentElement.innerHTML = response;
+                        })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error:', textStatus, errorThrown);
+                        });
+
+                });
+            });
+        });
+    </script>
+
+    <script>
+
+
+
+    </script>
+}
+
+
+@*
+
+<form id="myForm">
+<input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken().ToString()" />
+<!-- Other form fields -->
+</form>
+
+<meta name="csrf-token" content="@Html.AntiForgeryToken().ToString()" />
+
+var token = $('#myForm input[name="__RequestVerificationToken"]').val();
+
+var token = $('meta[name="csrf-token"]').attr('content');
+
+$.ajax({
+    url: 'https://example.com/api/endpoint',
+    type: 'POST',
+    data: {
+    param1: 'value1',
+    param2: 'value2'
+    },
+headers: {
+'RequestVerificationToken': token // Include the token in the headers
+},
+success: function(response) {
+console.log('Success:', response);
+},
+error: function(jqXHR, textStatus, errorThrown) {
+console.error('Error:', textStatus, errorThrown);
+}
+});
+
+*@
