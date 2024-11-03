@@ -1,4 +1,5 @@
 using System;
+using Microsoft.CodeAnalysis;
 
 namespace DemoAuthenticate.AppLib;
 
@@ -11,12 +12,18 @@ public static partial class SessionExtensions
 
 	public static T? Get<T>(this ISession session, string key)
 	{
-		session.TryGetValue(key, out byte[]? dataByte);
+		return System.Text.Json.JsonSerializer.Deserialize<T>(session.Get(key));
+	}
 
-		string? data = dataByte != null ? System.Text.Encoding.UTF8.GetString(dataByte) : null;
-
-		return data == null ? default(T) : System.Text.Json.JsonSerializer.Deserialize<T>(data);
+	public static T? TryGet<T>(this ISession session, string key)
+	{
+		if (session.TryGetValue(key, out byte[]? value))
+		{
+			return System.Text.Json.JsonSerializer.Deserialize<T>(value);
+		}
+		else
+		{
+			return default;
+		}
 	}
 }
-
-

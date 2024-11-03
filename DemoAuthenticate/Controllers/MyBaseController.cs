@@ -85,14 +85,14 @@ public class CommonModelAttribute : ActionFilterAttribute
 				MilliSecs = (DateTime.UtcNow.Ticks / 10000) - 62135596800000
 			};
 
-			if (context.HttpContext.Session.IsAvailable && context.HttpContext.Session.Get(Literals.SessionCookie_Name) != null)
+/* 			if (context.HttpContext.Session.IsAvailable && context.HttpContext.Session.GetUserSession().Login)
 			{
 				controller.ViewBag.Session = new CommonVM()
 				{
 					Ticks = context.HttpContext.Session.Get<DateTime>(Literals.SessionCookie_Name).Ticks,
 					MilliSecs = (context.HttpContext.Session.Get<DateTime>(Literals.SessionCookie_Name).Ticks / 10000) - 62135596800000
 				};
-			}
+			} */
 		}
 
 		base.OnActionExecuting(context);

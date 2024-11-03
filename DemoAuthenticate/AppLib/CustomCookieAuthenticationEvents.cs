@@ -9,7 +9,7 @@ public class CustomCookieAuthenticationEvents : CookieAuthenticationEvents
 	public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
 	{
 		// Runs in every request
-		Boolean login = context.HttpContext.Session.Get<bool>(Literals.SessionKeyLogin);
+		Boolean login = context.HttpContext.Session.Get<bool>(Literals.SessionKey_Login);
 
 		if (context.Principal != null && context.Principal.Identity != null)
 		{

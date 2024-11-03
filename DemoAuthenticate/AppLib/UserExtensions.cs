@@ -4,13 +4,13 @@ namespace DemoAuthenticate.AppLib;
 
 public static partial class UserExtensions
 {
-	public static (DateTime? Created, DateTime? LastRequest, Boolean? Login, AppUser? User) GetUserSession(this ISession session, AppUser user)
+	public static (DateTime? Created, DateTime? LastRequest, Boolean Login, AppUser? User) GetUserSession(this ISession session)
 	{
 		return (
-			session.Get<DateTime>(Literals.SessionKey_Created),			
-			session.Get<DateTime>(Literals.SessionKey_LastRequest),
-			session.Get<Boolean>(Literals.SessionKey_Login),
-			session.Get<AppUser>(Literals.SessionKey_User)
+			session.TryGet<DateTime>(Literals.SessionKey_Created),			
+			session.TryGet<DateTime>(Literals.SessionKey_LastRequest),
+			session.TryGet<Boolean>(Literals.SessionKey_Login),
+			session.TryGet<AppUser>(Literals.SessionKey_User)
 		);		
 	}
 
@@ -33,6 +33,12 @@ public static partial class UserExtensions
 	public static void SetLastRequestTimeStamp(this ISession session)
 	{
 		session.Set<DateTime>(Literals.SessionKey_LastRequest, DateTime.UtcNow);
+	}
+
+	public static DateTime? GetLastRequestTimeStamp(this ISession session)
+	{
+		var v = session.TryGet<DateTime>(Literals.SessionKey_LastRequest);
+		return v == default(DateTime) ? null : v;
 	}
 }
 

@@ -26,7 +26,7 @@
 
 @{ISession? session = HttpContextAccessor?.HttpContext?.Session;}
 
-@session?.GetUserSession()?.SessionStart
+@session?.GetUserSession()
 @session?.GetLastRequestTimeStamp();
 
 <accordion id="acc">

@@ -4,5 +4,5 @@ namespace DemoAuthenticate.AppLib;
 
 public class TestAuthenticate : IAuthenticate
 {
-	public bool AuthenticateUser(string UserId, string Password) => true;
+	public Task<bool> AuthenticateUserAsync(string UserId, string Password) => Task.FromResult<bool>(true);
 }
