@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using DemoAuthenticate.AppLib;
 using DemoAuthenticate.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -10,54 +11,10 @@ using Microsoft.Extensions.Options;
 namespace DemoAuthenticate.Controllers;
 
 [CommonModel]
+// [Authorize(Policy = nameof(AuthorizationPolicyLibrary.userPolicy))]
+// [Authorize]
 public class MyBaseController : Controller
 {
-		public AuthenticationTicket? GetAuthenticationTicketFromCookie()
-	{
-		try
-		{
-			CookieAuthenticationOptions? opt = HttpContext.RequestServices
-				.GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>()
-				.Get(CookieAuthenticationDefaults.AuthenticationScheme);
-
-			if (opt != null && opt.Cookie.Name != null)
-			{
-				var authCookie = opt.CookieManager.GetRequestCookie(HttpContext, opt.Cookie.Name);
-				AuthenticationTicket? ticket = opt.TicketDataFormat.Unprotect(authCookie);
-				return ticket;
-			}
-			else
-			{
-				throw new ArgumentException(nameof(CookieAuthenticationOptions));
-			}
-		}
-		catch
-		{
-			return null;
-		}
-	}
-
-	public AuthenticationTicket? GetAuthenticationTicketFromAuthResult()
-	{
-		var authResult = HttpContext.Features.Get<IAuthenticateResultFeature>()?.AuthenticateResult;
-		var authProps = authResult?.Properties;
-		return authResult?.Ticket ?? null;
-	}
-
-	public Dictionary<string, string>? GetAllCookies(HttpRequest httpRequest)
-	{
-		var cookies = httpRequest.Cookies;
-
-		var cookieList = new Dictionary<string, string>();
-
-		foreach (var cookie in cookies)
-		{
-			cookieList[cookie.Key] = cookie.Value;
-		}
-
-		return cookieList;
-	}
-
 	public async Task<IActionResult> UserLogin(string username)
 	{
 		var claims = new List<Claim> {
@@ -81,8 +38,9 @@ public class MyBaseController : Controller
 
 		await HttpContext.SignInAsync(principal, authProperties);
 
+		AppUser user = new AppUser();
 
-		HttpContext.Session.SetUserSession(Request.HttpContext);
+		HttpContext.Session.SetUserSession(user);
 
 		return RedirectToAction("Index");
 	}
@@ -90,6 +48,8 @@ public class MyBaseController : Controller
 	public async Task<IActionResult> UserLogout()
 	{
 		await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+		HttpContext.Session.ResetUserSession();
 
 		HttpContext.Session.Clear();
 
@@ -99,7 +59,7 @@ public class MyBaseController : Controller
 	public readonly IDataProtector _protectorSessionCookie;
 
 	public readonly IDataProtector _protectorAuthenticationCookie;
-	
+
 	public MyBaseController(IDataProtectionProvider dataProtectionProvider)
 	{
 		// To decrypt authentication cookie:
@@ -120,17 +80,17 @@ public class CommonModelAttribute : ActionFilterAttribute
 		if (controller != null)
 		{
 			controller.ViewBag.Current = new CommonVM()
-			{				
+			{
 				Ticks = DateTime.UtcNow.Ticks,
-				MilliSecs = (DateTime.UtcNow.Ticks / 10000) - 62135596800000				
+				MilliSecs = (DateTime.UtcNow.Ticks / 10000) - 62135596800000
 			};
 
-			if (context.HttpContext.Session.IsAvailable && context.HttpContext.Session.Get(Literals.SessionCookieName) != null)
+			if (context.HttpContext.Session.IsAvailable && context.HttpContext.Session.Get(Literals.SessionCookie_Name) != null)
 			{
 				controller.ViewBag.Session = new CommonVM()
 				{
-					Ticks = context.HttpContext.Session.Get<DateTime>(Literals.SessionCookieName).Ticks,
-					MilliSecs = (context.HttpContext.Session.Get<DateTime>(Literals.SessionCookieName).Ticks / 10000) - 62135596800000
+					Ticks = context.HttpContext.Session.Get<DateTime>(Literals.SessionCookie_Name).Ticks,
+					MilliSecs = (context.HttpContext.Session.Get<DateTime>(Literals.SessionCookie_Name).Ticks / 10000) - 62135596800000
 				};
 			}
 		}

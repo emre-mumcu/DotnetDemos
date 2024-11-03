@@ -172,31 +172,6 @@ await HttpContext.SignInAsync(
 	});
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # References
 
 * https://learn.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-8.0
@@ -205,8 +180,3 @@ await HttpContext.SignInAsync(
 * https://learn.microsoft.com/en-us/aspnet/core/security/gdpr?view=aspnetcore-8.0#essential-cookies
 * https://github.com/dotnet/aspnetcore/blob/main/src/Security/CookiePolicy/src/CookiePolicyMiddleware.cs
 * https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationevents?view=aspnetcore-8.0
-
-
-
-
-
