@@ -1,0 +1,42 @@
+﻿@model HomeVM
+
+@{
+	var options = new System.Text.Json.JsonSerializerOptions
+			{
+				WriteIndented = true,
+				PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+				DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+				ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+			};
+}
+
+<a asp-action="AddSessionData">Add Session Data</a> | <a asp-action="DeleteCookies">Delete Cookies</a>
+
+<pre>
+	<code>
+SessionFeature (Available even if NO values are SET in session, session id changes with each request if session has no data):
+@System.Text.Json.JsonSerializer.Serialize(Model.SessionFeature, options)
+
+RequestCookieCollection (Only available if session has some data):
+@System.Text.Json.JsonSerializer.Serialize(Model.RequestCookieCollection, options)
+
+Request Cookie Dictionary (Only available if session has some data):
+@System.Text.Json.JsonSerializer.Serialize(Model.RequestCookieDictionary, options)
+
+Session Keys Dictionary (Only available if session has some data):
+@System.Text.Json.JsonSerializer.Serialize(Model.SessionKeysDictionary, options)
+
+SessionCookie (Only available if session has some data):
+@System.Text.Json.JsonSerializer.Serialize(Model.SessionCookie, options)
+
+DecryptedSessionCookie (Only available if session has some data):
+@System.Text.Json.JsonSerializer.Serialize(Model.DecryptedSessionCookie, options)
+	</code>
+</pre>
+
+
+<style>
+	pre {
+		white-space: pre-wrap;
+	}
+</style>

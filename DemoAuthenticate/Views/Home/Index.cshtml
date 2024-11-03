@@ -1,0 +1,66 @@
+﻿@model IndexVM
+
+@{
+    var options = new System.Text.Json.JsonSerializerOptions
+	{
+		WriteIndented = true,
+		PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+		DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+		ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve,
+		// Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.BasicLatin, System.Text.Unicode.UnicodeRanges.Cyrillic),
+	};
+}
+
+<style>
+	pre {
+		white-space: pre-wrap;
+		font-size: x-small;
+	}
+</style>
+
+<script>
+	let jsMilliseconds = 0;
+	let date = new Date(jsMilliseconds);
+	console.log(date);
+</script>
+
+@{ISession? session = HttpContextAccessor?.HttpContext?.Session;}
+
+@session?.GetUserSession()?.SessionStart
+@session?.GetLastRequestTimeStamp();
+
+<accordion id="acc">
+	<accordion-item title="User Identity" code>
+		@System.Text.Json.JsonSerializer.Serialize(User.Identity as System.Security.Claims.ClaimsIdentity, options)
+	</accordion-item>	
+	<accordion-item title="Session Feature" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.SessionFeature, options)
+	</accordion-item>
+	<accordion-item title="Session Options" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.SessionOptions, options)
+	</accordion-item>
+	<accordion-item title="Request Cookie Collection" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.RequestCookieCollection, options)
+	</accordion-item>
+	<accordion-item title="Request Cookie Dictionary" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.RequestCookieDictionary, options)
+	</accordion-item>
+	<accordion-item title="Session Keys Dictionary" code>
+		@string.Join(Environment.NewLine, Model.SessionKeysDictionary ?? new Dictionary<string, string>())
+	</accordion-item>
+	<accordion-item title="Session Cookie" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.SessionCookie, options)
+	</accordion-item>
+	<accordion-item title="Auth Cookie" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.AuthCookie, options)
+	</accordion-item>	
+	<accordion-item title="All Cookies" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.AllCookies, options)
+	</accordion-item>
+	<accordion-item title="Authentication Ticket From Cookie" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.AuthenticationTicketFromCookie, options)
+	</accordion-item>
+	<accordion-item title="Authentication Ticket From Authentication Result" code>
+		@System.Text.Json.JsonSerializer.Serialize(Model.AuthenticationTicketFromAuthResult, options)
+	</accordion-item>
+</accordion>
